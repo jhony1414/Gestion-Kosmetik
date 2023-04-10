@@ -1,4 +1,5 @@
 import express from 'express'
+import session from 'express-session'
 import { engine } from '@paroi/express-edge'
 import routes from '../routes/routes.js'
 import rutasProveedores from '../routes/rutasProveedores.js'
@@ -23,6 +24,8 @@ const server = async () => {
     const port = process.env.PORT || 3000
     const app = express()
 
+    //Variables
+    global.estado = ""
     //Habilitar lectura de formularios
     app.use( express.urlencoded( { extended: true } ) )
 
@@ -38,6 +41,16 @@ const server = async () => {
    
     // Habilitar gestor de plantillas edge
     app.use( engine )
+
+    //Usar Sesiones
+    app.use(session({
+        secret: process.env.SESSION_SECRET,
+        saveUninitialized: true,
+        resave: true,
+        cookie:{
+            maxAge: 60000,
+          }
+      }));
 
      // Configurar vistas
     //app.set('views', '../views')

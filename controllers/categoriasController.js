@@ -1,8 +1,10 @@
-import {check, validationResult } from 'express-validator'
+import {validationResult } from 'express-validator'
 //import Categoria from '../models/categorias.js'
 import { todasCategorias, encuentraUnaCategoria, nuevaCategoria } from '../helpers/helpers.js'
 
+
 const cargarFormulario = async (req, res)=>{
+    
     //const categorias = await Categoria.findAll()
     const  categorias  = await todasCategorias()
     
@@ -10,9 +12,8 @@ const cargarFormulario = async (req, res)=>{
 }
 
 const crearCategoria = async (req, res)=>{
+    //global.estado = ''
     const  nombre  = req.body.nombre
-    console.log(`nombre: ${req.body.nombre}`);
-    console.log(typeof(nombre));
     
     const categorias =  await todasCategorias()
     
@@ -20,7 +21,7 @@ const crearCategoria = async (req, res)=>{
     
     
     if (!resultado.isEmpty()) {
-        console.log(resultado.array());
+    
         return res.render('categorias/formularioCategorias',
         {
             titulo:'Crear Categoria',
@@ -35,9 +36,11 @@ const crearCategoria = async (req, res)=>{
         }
         
     }
-
+    
+    global.estado = 'ok'
     await nuevaCategoria( nombre )
     res.redirect('/categorias/formulario')
+    
 }
 
 

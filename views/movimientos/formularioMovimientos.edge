@@ -1,0 +1,96 @@
+@layout('layout/plantilla')
+
+@section('contenido')
+<h3 class="text-center mb-3">{{ encabezado }}</h3>
+<div class="col-lg-12 col-12 mx-auto border p-3 shadow">
+
+    <form class="form-horizontal" method='POST' action="/movimientos/crear">
+        <div class="row gy-2 mb-4">
+          <label class="col-sm-2 form-label" >Concepto</label>
+          <div class="col-sm-4">
+            <input class="form-control" type="text" placeholder="Concepto" name="concepto" value="{{ movimiento ? movimiento.concepto : '' }}" >
+          </div>
+          <label class="col-sm-2 form-label">Proveedor</label>
+          <div class="col-sm-4">
+            
+            <select class="form-select" name='proveedor' required>
+                @if(proveedores)
+                    @each(proveedor in proveedores)
+                      <option value="{{proveedor.id}}" id="proveedor" >{{proveedor.nombre}}</option>
+                    @endeach
+                @end
+                
+                
+                </select>
+                <div class="col-auto">
+                  <small class="form-text">Si no existe el que buscas debes crearlo primero</small>  
+                </div>
+            </div>
+        </div>
+
+        <div class="row gy-2 mb-4">
+          <label class="col-sm-2 form-label">Tipo</label>
+          <div class="col-sm-3">
+              <select class="form-select" name='tipo' required>
+                  @if(movimiento)
+                      <option selected>{{ movimiento.tipo }}</option>
+                      <option value="Ingreso">Ingreso</option>
+                      <option value="Gasto">Gasto</option>
+
+                  @else
+                      
+                      <option value="Ingreso">Ingreso</option>
+                      <option value="Gasto">Gasto</option>
+                  @end
+                  
+                  
+              </select>
+          </div>
+          <label class="col-sm-3 form-label">Importe</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="number" step="0.01" placeholder="Importe" name="importe" value="{{ movimiento ? movimiento.importe : '' }}" required>
+          </div>
+          
+        </div>
+
+
+        <div class="row gy-2 mb-4">
+          <label class="col-sm-2 form-label">Fecha</label>
+          <div class="col-sm-3">
+            <input class="form-control" type="date" name="fecha" required>
+          </div>
+          <label class="col-sm-3 form-label">Categoria</label>
+          <div class="col-sm-4">
+            
+            <select class="form-select" name='categoria' required>
+                @if(categorias)
+
+                    @each(categoria in categorias)
+                      <option value="{{categoria.id}}" id="categoria" >{{categoria.nombre}}</option>
+                      
+                    @endeach
+                
+                    
+                @end
+                
+                
+                </select>
+                <div id="categoria" class="col-auto">
+                  <small class="form-text">Si no existe la que buscas debes crearla primero</small>  
+                </div>
+
+            </div>
+        </div>
+       
+        <div class="row">
+          <div class="col-sm-9 ms-auto">
+            <input class="btn btn-primary" type="submit" value="{{ movimiento ? 'Actualizar' : 'Guardar' }}">
+          </div>
+        </div>
+      </form>
+    
+
+</div>
+
+
+@endsection

@@ -1,0 +1,116 @@
+@layout('../layout/plantilla.edge')
+
+@section('contenido')
+
+    <h3 class="text-center mb-3">{{ encabezado }}</h3>
+    <div class="col-4 mx-auto">
+      @if(errores)
+              
+                      @each(error in errores)
+                          <div class="alert alert-danger alert-dismissible fade show text-sm mx-auto shadow mt-3 bg-danger bg-opacity-10 text-center" role="alert">
+                              {{ error.msg }}
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+  
+                          
+                      
+                      @endeach 
+                
+                  @endif
+    </div>
+    <div class="" id="tabla">
+      <div class="row col-lg-6 col-6 mx-auto p-3 mb-4">
+              <div class="table-responsive ">
+                  <table class="table mx-auto table-striped shadow border" style="width: 30rem;">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Acciones</th>
+                        <th scope="col">
+                          
+                          {{--  <button onclick=mostrarDiv('crearNueva', 'tabla') class="btn btn-sm btn-success shadow">Nueva Categoria</button>  --}}
+                          <button type="button" class="btn btn-success btn-sm shadow" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Nueva Categoria
+                          </button>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @each(categoria in categorias)
+                        <tr>
+                          <th scope="row">{{ categoria.id }}</th>
+                          <td>{{ categoria.nombre }}</td>
+                          <td>
+                                    
+                            <a href='' class='btn btn-success btn-sm'
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-custom-class="custom-tooltip"
+                            title="Ver Proveedor."
+                            ><i class="fa-solid fa-circle-info"></i></a>
+            
+                            <a href="" class='btn btn-warning btn-sm'
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-custom-class="custom-tooltip"
+                            title="Editar Proveedor."
+                            ><i class="fa-solid fa-pen"></i></a>
+            
+                            <a href="" class='btn btn-danger btn-sm shadow' data-movimiento-id='{{categoria.id}}'
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-custom-class="custom-tooltip"
+                            title="Eliminar Proveedor."
+                            id='eliminar-proveedor'><i class="fa-solid fa-trash"></i></a>
+            
+                          </td>
+                          
+                        </tr>
+                      @endeach
+                      
+                      
+                    </tbody>
+                  </table>
+                </div>
+      </div>
+      
+    </div>
+    
+     
+      
+
+      {{--  MODAL  --}}
+ 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Categoria</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" method="POST" action="/categorias/crear">
+          <div class="row gy-2 mb-4">
+              <label class="col-sm-3 form-label" for="inputHorizontalElOne">Nombre</label>
+              <div class="col-sm-9">
+                  <input class="form-control" id="inputHorizontalElOne" type="text" placeholder="Nombre de la categoria" name="nombre">
+              </div>
+             
+              
+          </div>
+      
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <input class="btn btn-primary" type="submit" value="Guardar">
+          </div>
+      </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+    
+    
+    
+    
+@endsection

@@ -1,0 +1,21 @@
+{
+  "name": "prueba1",
+  "module": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "^0.5.0",
+    "nodemon": "^2.0.22"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@paroi/express-edge": "^1.0.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.29.3",
+    "sqlite3": "^5.1.6"
+  }
+}

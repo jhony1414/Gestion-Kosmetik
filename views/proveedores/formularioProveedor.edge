@@ -1,0 +1,46 @@
+@layout('../layout/plantilla.edge')
+
+@section('contenido')
+    <h3 class="text-center mb-3">{{ encabezado }}</h3>
+    <form class="form-horizontal" method="POST" action="/proveedores/crear">
+        <div class="row gy-2 mb-4">
+            <label class="col-sm-3 form-label" for="inputHorizontalElOne">Nombre</label>
+            <div class="col-sm-9">
+                <input class="form-control" id="inputHorizontalElOne" type="text" placeholder="Nombre proveedor" name="nombre">
+
+                 @if(errores)
+            
+                    @each(error in errores)
+                        <div class="alert alert-danger alert-dismissible fade show text-sm mx-auto shadow mt-3 bg-danger bg-opacity-10 text-center" role="alert">
+                            {{ error.msg }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        {{--  <div class="toast " role="alert" aria-live="assertive" aria-atomic="true" autohide: false>
+                            <div class="toast-header">
+                              <img src="..." class="rounded me-2" alt="...">
+                              <strong class="me-auto">Bootstrap</strong>
+                              <small>11 mins ago</small>
+                              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                              Hello, world! This is a toast message.
+                            </div>
+                          </div>  --}}
+                    
+                    @endeach 
+              
+                @endif
+            </div>
+           
+            
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-9 ms-auto">
+                <input class="btn btn-primary" type="submit" value="Guardar">
+            </div>
+        </div>
+    </form>
+    
+@endsection

@@ -1,6 +1,7 @@
 @layout('../layout/plantilla')
 
 @section('contenido')
+
 <table class="table">
     <thead>
       <tr>
@@ -16,10 +17,12 @@
     </thead>
     <tbody>
         @each(movimiento in movimientos)
+          {{--  {{inspect(movimiento)}}  --}}
             <tr>
                 <td>{{ movimiento.fecha }}</td>
                 <td>{{ movimiento.concepto }}</td>
                 <td>{{movimiento.Proveedor.nombre}}</td>
+                
                 <td>{{ movimiento.Categorium.nombre }}</td>
                 <td>{{movimiento.tipo}}</td>
                 <td>{{movimiento.importe}} CHF</td>

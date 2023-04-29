@@ -21,13 +21,14 @@ const crearCategoria = async (req, res)=>{
     
     
     if (!resultado.isEmpty()) {
-    
+        resultado = JSON.stringify(resultado)
+        console.log(resultado);
         return res.render('categorias/formularioCategorias',
         {
             titulo:'Crear Categoria',
             encabezado: 'Nueva Categoria ',
             categorias,
-            errores: resultado.array()
+            errores: resultado
         })
     }else{
         const categoria = await encuentraUnaCategoria( nombre )
@@ -42,9 +43,13 @@ const crearCategoria = async (req, res)=>{
     res.redirect('/categorias/formulario')
     
 }
-
+const eliminarCategoria = async (req, res)=>{
+    res.send(req.params.id)
+    
+}
 
 export {
     crearCategoria,
-    cargarFormulario
+    cargarFormulario,
+    eliminarCategoria
 }

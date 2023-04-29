@@ -1,11 +1,12 @@
 @layout('../layout/plantilla.edge')
 
 @section('contenido')
+{{--  {{inspect(estado)}}  --}}
 @if(estado === 'ok')
   <script>
     
       Swal.fire({
-        position: 'top-end',
+        /* position: 'top-end', */
         icon: 'success',
         title: 'Guardado correctamente',
         showConfirmButton: true,
@@ -13,24 +14,62 @@
       })
 
     
-  </script>   
+  </script>
+  {{ estado = false }}
 @end
 <h3 class="text-center mb-3">{{ encabezado }}</h3>
 <div class="col-4 mx-auto">
   @if(errores)
-
+    <input type="hidden" value="{{ errores }}" id="errores"/>
     @each(error in errores)
-      <div
+      {{--  <div
         class="alert alert-danger alert-dismissible fade show text-sm mx-auto shadow mt-3 bg-danger bg-opacity-10 text-center"
         role="alert">
         {{ error.msg }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+      </div>  --}}
 
+      {{--  {{inspect(errores)}}  --}}
 
 
     @endeach
+    <script>
+      const data = document.querySelector('#errores').value
+      const errores = JSON.parse(data)
 
+      const listaErrores = () =>{
+        for (const key in errores) {
+                if (Object.hasOwnProperty.call(errores, key)) {
+                  const element = errores[key];
+                  for (const key in element) {
+                    if (Object.hasOwnProperty.call(element, key)) {
+                      const error = element[key].msg;
+                      console.log(error);
+                      return error
+                    }
+                  }
+                  
+                }
+              }
+
+      }
+
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        
+        text: listaErrores(),
+      })
+      const lista2 = ()=>{
+        console.log(data);
+        console.log(typeof(data));
+      }
+      lista2()
+    
+    </script>
+
+    
   @endif
 </div>
 <div class="" id="tabla">
@@ -65,9 +104,9 @@
               <a href="" class='btn btn-warning btn-sm' data-bs-toggle="tooltip" data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip" title="Editar Proveedor."><i class="fa-solid fa-pen"></i></a>
 
-              <a href="" class='btn btn-danger btn-sm shadow' data-movimiento-id='{{categoria.id}}'
+              <a href="{{`/categorias/eliminar/${ categoria.id }`}}" class='btn btn-danger btn-sm shadow' data-categoria-id='{{categoria.id}}'
                 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                title="Eliminar Proveedor." id='eliminar-proveedor'><i class="fa-solid fa-trash"></i></a>
+                title="Eliminar categoria." id='eliminar-categoria'><i class="fa-solid fa-trash"></i></a>
 
             </td>
 
